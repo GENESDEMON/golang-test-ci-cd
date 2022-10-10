@@ -13,6 +13,7 @@ func main() {
 	router.GET("/", WelcomeMessage)
 	router.POST("/createStudent", CreateStudent())
 	router.GET("/students", GetStudents())
+	router.GET("/students/:id", GetStudentById())
 	//router.PUT("/updatestudent/:id", UpdateAStudent())
 	//router.DELETE("/deletestudent/:id", DeleteAStudent())
 	router.Run()
@@ -68,55 +69,16 @@ func GetStudents() gin.HandlerFunc {
 	}
 }
 
-//Update a student Details
-// func UpdateAStudent() gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		Update a particular student
-// 		id := c.Param("id")
-// 		var newStudent Student
-// 		if err := c.BindJSON(&newStudent); err != nil {
-// 			c.JSON(http.StatusBadRequest, gin.H{
-// 				"Status":  http.StatusBadRequest,
-// 				"Message": "error",
-// 				"Data":    map[string]interface{}{"data": err.Error()}})
-// 			return
-// 		}
-// 		index := -1
-// 		for i := 0; i < len(students); i++ {
-// 			if students[i].ID == id {
-// 				index = 1
-// 			}
-// 		}
-// 		if index == -1 {
-// 			c.JSON(http.StatusNotFound, gin.H{
-// 				"error": "Student profile not found",
-// 			})
-// 			return
-// 		}
-// 		students[index] = newStudent
-// 		c.JSON(http.StatusOK, newStudent)
-// 	}
-// }
-
-//Delete a student profile
-// func DeleteAStudent() gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		id := c.Param("id")
-// 		index := -1
-// 		for i := 0; i < len(students); i++ {
-// 			if students[i].ID == id {
-// 				index = 1
-// 			}
-// 		}
-// 		if index == -1 {
-// 			c.JSON(http.StatusNotFound, gin.H{
-// 				"error": "Student profile not found",
-// 			})
-// 			return
-// 		}
-// 		students = append(students[:index], students[index+1:]...)
-// 		c.JSON(http.StatusOK, gin.H{
-// 			"message": "Student profile deleted",
-// 		})
-// 	}
-// }
+//Get one student from the list
+func GetStudentById() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		id := c.Param("id")
+		for _, a := range students {
+			if a.ID == id {
+				c.IndentedJSON(http.StatusOK, a)
+				return
+			}
+		}
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
+	}
+}
