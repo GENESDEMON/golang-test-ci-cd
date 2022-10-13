@@ -65,11 +65,3 @@ func TestGetStudents(t *testing.T) {
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.NotEmpty(t, students)
 }
-
-func TestGetStudentById(t *testing.T) {
-	r := SetRouter()
-	r.GET("/students/:id", GetStudentById())
-	req, _ := http.NewRequest("GET", "/students/:id", nil)
-	w := httptest.NewRecorder()
-	r.ServeHTTP(w, req)
-}
