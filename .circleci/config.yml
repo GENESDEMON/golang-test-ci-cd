@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  heroku: circleci/heroku@2.0
 jobs:
   build:
     working_directory: ~/repo
@@ -19,3 +21,7 @@ jobs:
       - run:
           name: Run tests
           command: go test -v
+workflows:
+  heroku_deploy:
+    jobs:
+      - heroku/deploy-via-git
