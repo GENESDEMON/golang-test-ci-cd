@@ -11,7 +11,7 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              only: main
 jobs:
   build:
     working_directory: ~/repo
