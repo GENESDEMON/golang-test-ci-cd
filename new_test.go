@@ -65,3 +65,5 @@ func TestGetStudents(t *testing.T) {
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.NotEmpty(t, students)
 }
+
+//Testing automation
