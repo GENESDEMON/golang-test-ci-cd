@@ -1,1 +1,1 @@
-web: bin/stud-app-api
+web: app
